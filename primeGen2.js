@@ -1,0 +1,24 @@
+// Generator for the first
+const firstNPrimes = function* (N) {
+  yield 2; //.. the only even prime
+  let knownPrimes = [2];
+
+  let nextPossiblePrime = 3;
+  while (knownPrimes.length < N) {
+
+    // We'll not test even numbers, so don't check division by 2
+    for (var i = 1; nextPossiblePrime % knownPrimes[i] > 0; i++) ;
+
+    if (i === knownPrimes.length) {
+      //.. Yes prime, save it, yield it
+      knownPrimes.push(nextPossiblePrime);
+      yield nextPossiblePrime;
+    }
+
+    //.. This ensures we don't consider even numbers
+    nextPossiblePrime += 2;
+  }
+
+  //.. We have found all primes smaller than N
+  return knownPrimes;
+}
